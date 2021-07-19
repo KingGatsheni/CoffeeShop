@@ -73,6 +73,8 @@ namespace Coffee_Shop
                 cx.Parameters.AddWithValue("SalesTotal", Total);
                 cx.ExecuteNonQuery();
                 Console.WriteLine("Transcation Sucessful!");
+                change = payA - Total;
+                Console.WriteLine("Change: R"+change);
                 sqlcon.Close();
             }
         }
