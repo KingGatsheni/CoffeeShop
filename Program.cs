@@ -14,8 +14,7 @@ namespace Coffee_Shop
         private static decimal change;
         private static void Main(string[] args)
         {
-            MenuItems();
-            SearchbyId();
+            Navigation();
         }
         private static void SearchbyId()
         {
@@ -76,6 +75,7 @@ namespace Coffee_Shop
             }
         }
         private static void MenuItems()
+
         {
             Console.WriteLine("Welcome to our Virtual Coffee Shop this is our menu List");
             var conStr = new DbConfig();
@@ -95,5 +95,21 @@ namespace Coffee_Shop
 
         }
         
+        private static void Navigation(){
+            Console.WriteLine("Welcome Admin, Please Select An Action To Perform");
+            Console.WriteLine("Select 1 To Conduct a Sale, 2 To Add new Stock And 3 To View Reports");
+            var action = Console.ReadLine();
+            int _action =Int32.Parse(action);
+            if(_action == 1){
+                MenuItems();
+                SearchbyId();
+            }else if(_action == 2){
+                AddProduct AddProd = new AddProduct();
+                AddProd.Restock();
+            }else if(_action == 3){
+                PrintSales Sales = new PrintSales();
+                Sales.Reports();
+            }
+        }
     }
 }

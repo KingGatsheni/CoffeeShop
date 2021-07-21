@@ -27,21 +27,22 @@ namespace Coffee_Shop
             products.Add(new Product(CoffeeType, decimal.Parse(CoffeePrice), Int32.Parse(Qty), AddedOn));
 
             SqlConnection sqlcon = new SqlConnection(Db._Sqlconnection);
-
+            sqlcon.Open();
 
             foreach (var product in products)
             {
                 string AddProd = "insert into TblProducts values(@CoffeeType,@CoffeePrice,@Quantity,@AddedOn)";
                 SqlCommand cmd = new SqlCommand(AddProd, sqlcon);
-                cmd.Parameters.AddWithValue("@CoffeeType",product.CoffeeType);
-                cmd.Parameters.AddWithValue("@CoffeePrice",product.CoffeePrice);
-                cmd.Parameters.AddWithValue("@Quantity",product.Quantity);
-                cmd.Parameters.AddWithValue("@AddedOn",AddedOn);
+                cmd.Parameters.AddWithValue("@CoffeeType", product.CoffeeType);
+                cmd.Parameters.AddWithValue("@CoffeePrice", product.CoffeePrice);
+                cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
+                cmd.Parameters.AddWithValue("@AddedOn", AddedOn);
                 cmd.ExecuteNonQuery();
             }
             Console.WriteLine("Stock Added To Database");
-
+            sqlcon.Close();
         }
+
 
 
     }
