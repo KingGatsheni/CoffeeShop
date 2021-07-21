@@ -5,6 +5,7 @@ namespace Coffee_Shop.Models
 {
     public class Product
     {
+        public int ProductId { get; set; }
         public string CoffeeType { get; set; }
         public decimal CoffeePrice { get; set; }
         public int Quantity { get; set; }

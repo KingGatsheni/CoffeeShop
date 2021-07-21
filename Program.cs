@@ -21,20 +21,17 @@ namespace Coffee_Shop
         {
             Console.WriteLine("Select Item to purchase by Id");
             string _id = Console.ReadLine();
-            Console.WriteLine("Enter ProductId: " + Int32.Parse(_id));
             var value1 = QueryById[Int32.Parse(_id)];
-            string purValue = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}",value1.CoffeeType+ "\t",value1.CoffeePrice + "\t",value1.Quantity+"\t",value1.AddedOn);
+            string purValue = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}",value1.CoffeeType+ "\t","R"+value1.CoffeePrice + "\t",value1.Quantity+"\t",value1.AddedOn);
             Console.WriteLine(purValue);
             Console.WriteLine("To Proceed with Sale of this item Enter Qty purchased");
             string qty = Console.ReadLine();
-            Console.WriteLine("Enter Quantity Amount Here: " + Int32.Parse(qty));
-         
             foreach (var kvp in QueryById)
             {
                 if(Int32.Parse(_id) == kvp.Key){
                 var ProductPrice = kvp.Value.CoffeePrice;
                 Total = ProductPrice * Int32.Parse(qty);
-                Console.WriteLine("Total Due: "+ Total);
+                Console.WriteLine("Total Due: R"+ Total);
                 }
             }
             Console.WriteLine("Please Enter Payment Amount");
@@ -90,7 +87,7 @@ namespace Coffee_Shop
 
             while (rw.Read())
             {
-                string data = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}",rw.GetInt32(0)+"\t",rw.GetString(1)+"\t",rw.GetDecimal(2)+"\t",rw.GetInt32(3)+"\t",rw.GetDateTime(4));
+                string data = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}",rw.GetInt32(0)+"\t",rw.GetString(1)+"\t"+"\t","R"+rw.GetDecimal(2)+"\t"+"\t",rw.GetInt32(3)+"\t"+"\t",rw.GetDateTime(4));
                 QueryById.Add(rw.GetInt32(0),new Product(rw.GetString(1),rw.GetDecimal(2),rw.GetInt32(3),rw.GetDateTime(4)));
                 Console.WriteLine(data);
             }
