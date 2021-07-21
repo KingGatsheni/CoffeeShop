@@ -19,12 +19,12 @@ namespace Coffee_Shop
             sqlcon.Open();
             SqlCommand cmd = new SqlCommand(QuryReport, sqlcon);
             var rows = cmd.ExecuteReader();
+            string header = string.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}", "ProductId" + "\t" + "\t", "CoffeeType" + "\t" + "\t", "R" + "CoffeePrice" + "\t" + "\t", "Quantity" + "\t" + "\t", "TotalPrice");
+            Console.WriteLine(header);
             while (rows.Read())
             {
                 SalesReports.Add(new Reports(rows.GetInt32(0), rows.GetString(1), rows.GetDecimal(2), rows.GetInt32(3), rows.GetDecimal(4)));
-                 string data = string.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}","ProductId"+"\t"+"\t","CoffeeType"+"\t"+"\t","R"+"CoffeePrice"+"\t"+"\t","Quantity"+"\t"+"\t","TotalPrice");
-                string reports = string.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}",rows.GetInt32(0)+"\t"+"\t",rows.GetString(1)+"\t"+"\t","R"+rows.GetDecimal(2)+"\t"+"\t",rows.GetInt32(3)+"\t"+"\t","R"+rows.GetDecimal(4));
-                Console.WriteLine(data);
+                string reports = string.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-10}", rows.GetInt32(0) + "\t" + "\t", rows.GetString(1) + "\t" + "\t", "R" + rows.GetDecimal(2) + "\t" + "\t", rows.GetInt32(3) + "\t" + "\t", "R" + rows.GetDecimal(4));
                 Console.WriteLine(reports);
             }
             sqlcon.Close();

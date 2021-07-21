@@ -85,10 +85,11 @@ namespace Coffee_Shop
             con.Open();
             SqlCommand cm = new SqlCommand(queryProducts, con);
             SqlDataReader rw = cm.ExecuteReader();
-
+            //string header = string.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}", "ProductId" + "\t" + "\t", "CoffeeType" + "\t" + "\t", "R" + "CoffeePrice" + "\t" + "\t", "Quantity" + "\t" + "\t", "Date");
+           // Console.WriteLine(header);
             while (rw.Read())
             {
-                string data = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}", rw.GetInt32(0) + "\t", rw.GetString(1) + "\t" + "\t", "R" + rw.GetDecimal(2) + "\t" + "\t", rw.GetInt32(3) + "\t" + "\t", rw.GetDateTime(4));
+                string data = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}", rw.GetInt32(0) + "\t"+ "\t", rw.GetString(1) + "\t" + "\t", "R" + rw.GetDecimal(2) + "\t" + "\t", rw.GetInt32(3) + "\t" + "\t", rw.GetDateTime(4));
                 QueryById.Add(rw.GetInt32(0), new Product(rw.GetString(1), rw.GetDecimal(2), rw.GetInt32(3), rw.GetDateTime(4)));
                 Console.WriteLine(data);
             }
