@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Coffee_Shop.Configs;
@@ -86,10 +87,10 @@ namespace Coffee_Shop
             SqlCommand cm = new SqlCommand(queryProducts, con);
             SqlDataReader rw = cm.ExecuteReader();
             //string header = string.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}", "ProductId" + "\t" + "\t", "CoffeeType" + "\t" + "\t", "R" + "CoffeePrice" + "\t" + "\t", "Quantity" + "\t" + "\t", "Date");
-           // Console.WriteLine(header);
+            // Console.WriteLine(header);
             while (rw.Read())
             {
-                string data = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}", rw.GetInt32(0) + "\t"+ "\t", rw.GetString(1) + "\t" + "\t", "R" + rw.GetDecimal(2) + "\t" + "\t", rw.GetInt32(3) + "\t" + "\t", rw.GetDateTime(4));
+                string data = String.Format("{0,-10}|{1,-10}|{2,-10}|{3,-10}|{4,-5}", rw.GetInt32(0) + "\t" + "\t", rw.GetString(1) + "\t" + "\t", "R" + rw.GetDecimal(2) + "\t" + "\t", rw.GetInt32(3) + "\t" + "\t", rw.GetDateTime(4));
                 QueryById.Add(rw.GetInt32(0), new Product(rw.GetString(1), rw.GetDecimal(2), rw.GetInt32(3), rw.GetDateTime(4)));
                 Console.WriteLine(data);
             }
@@ -100,27 +101,51 @@ namespace Coffee_Shop
         private static void Navigation()
         {
             Console.WriteLine("Welcome Admin, Please Select An Action To Perform");
-            Console.WriteLine("Select 1 To Conduct a Sale, 2 To Add new Stock And 3 To View Reports");
+            Console.WriteLine("Select 1 To Conduct a Sale, 2 To Add new Stock And 3 To View Reports and Q or q to exit");
             var action = Console.ReadLine();
-            int _action = Int32.Parse(action);
-            if (_action == 1)
+            if (action == "1")
             {
                 Console.Clear();
-                MenuItems();
-                SearchbyId();
+                var run = true;
+                while (run)
+                {
+                    MenuItems();
+                    SearchbyId();
+                    Console.WriteLine("Press 1 to Continue and Press 2 exit menu");
+                    string ex = Console.ReadLine();
+                    if (ex == "1")
+                    {
+                        run = true;
+                        Console.Clear();
+                        foreach (var k in QueryById.Keys.ToList())
+                        {
+                            QueryById[k] = null;
+                        }
+                    }
+                    else if (ex == "2")
+                    {
+                        run = false;
+                    }
+                }
+
             }
-            else if (_action == 2)
+            else if (action == "2")
             {
                 Console.Clear();
                 AddProduct AddProd = new AddProduct();
                 AddProd.Restock();
             }
-            else if (_action == 3)
+            else if (action == "3")
             {
                 Console.Clear();
                 Console.WriteLine("Sales Report Information");
                 PrintSales Sales = new PrintSales();
                 Sales.Reports();
+                Console.ReadLine();
+            }
+            else if (action == "Q" || action == "q")
+            {
+                Console.WriteLine("GoodBye...");
             }
         }
     }
