@@ -8,7 +8,7 @@ namespace Coffee_Shop
 {
     class Program
     {
-        private static Dictionary<int, Product> QueryById = new Dictionary<int, Product>();
+        private static Dictionary<int, Product> QueryById = new Dictionary<int, Product>();// will be used to search the product by Id;
         private static decimal Total;
         private static decimal payA;
         private static decimal change;
@@ -46,7 +46,7 @@ namespace Coffee_Shop
             }
             else
             {
-                var con = new DbConfig();
+                var con = new DbConfig();// database connection object 
                 SqlConnection sqlcon = new SqlConnection(con._Sqlconnection);
                 string makeSale = "insert into TblSales values(@ProductId,@Qty,@SoldAt,@Total)";
                 sqlcon.Open();

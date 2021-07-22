@@ -10,22 +10,38 @@ namespace Coffee_Shop
     {
         private List<Product> products = new List<Product>();
         private DbConfig Db = new DbConfig();
+        private bool isRunning = true;
+        private DateTime AddedOn;
         public void Restock()
         {
-            Console.WriteLine("Please Enter The New Stock Information here...");
-            Console.WriteLine("CoffeeType..?");
-            var CoffeeType = Console.ReadLine();
+            while (isRunning)
+            {
+                Console.WriteLine("Please Enter The New Product Information here...");
+                Console.WriteLine("CoffeeType..?");
+                var CoffeeType = Console.ReadLine();
 
-            Console.WriteLine("CoffeePrice..?");
-            var CoffeePrice = Console.ReadLine();
+                Console.WriteLine("CoffeePrice..?");
+                var CoffeePrice = Console.ReadLine();
 
-            Console.WriteLine("Quantity..?");
-            var Qty = Console.ReadLine();
+                Console.WriteLine("Quantity..?");
+                var Qty = Console.ReadLine();
 
-            DateTime AddedOn = DateTime.UtcNow;
+                AddedOn = DateTime.UtcNow;
+                products.Add(new Product(CoffeeType, decimal.Parse(CoffeePrice), Int32.Parse(Qty), AddedOn));
+                Console.WriteLine("Press 1 to continue  Adding Products and press 2 to exit Menu.");
 
-            products.Add(new Product(CoffeeType, decimal.Parse(CoffeePrice), Int32.Parse(Qty), AddedOn));
-
+                string input = Console.ReadLine();
+                if (input == "1")
+                {
+                    isRunning =true;
+                    Console.Clear();
+                }
+                else if (input == "2")
+                {
+                    isRunning =false;
+                }
+            }
+            Console.WriteLine("Adding Product info To DataStore.......");
             SqlConnection sqlcon = new SqlConnection(Db._Sqlconnection);
             sqlcon.Open();
 
@@ -39,7 +55,7 @@ namespace Coffee_Shop
                 cmd.Parameters.AddWithValue("@AddedOn", AddedOn);
                 cmd.ExecuteNonQuery();
             }
-            Console.WriteLine("Stock Added To Database");
+            Console.WriteLine("Product Info Added successful To DataStore");
             sqlcon.Close();
         }
 
