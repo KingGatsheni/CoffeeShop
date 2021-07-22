@@ -97,7 +97,6 @@ namespace Coffee_Shop
             con.Close();
 
         }
-
         private static void Navigation()
         {
             Console.WriteLine("Welcome Admin, Please Select An Action To Perform");

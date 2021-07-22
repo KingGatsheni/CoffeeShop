@@ -58,8 +58,5 @@ namespace Coffee_Shop
             Console.WriteLine("Product Info Added successful To DataStore");
             sqlcon.Close();
         }
-
-
-
     }
 }
