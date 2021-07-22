@@ -116,10 +116,7 @@ namespace Coffee_Shop
                     {
                         run = true;
                         Console.Clear();
-                        foreach (var k in QueryById.Keys.ToList())
-                        {
-                            QueryById[k] = null;
-                        }
+                        QueryById.Clear();
                     }
                     else if (ex == "2")
                     {
